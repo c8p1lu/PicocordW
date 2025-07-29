@@ -54,7 +54,7 @@ This project demonstrates how to:
 ### 🔧 Setup
 
 1. Flash MicroPython onto your Pico W.
-2. Upload the script (`main.py` or `boot.py`) using Thonny or another IDE.
+2. Upload the script (`main.py`) using Thonny or another IDE.
 3. Replace the following values in the script:
    ```python
    ssid = 'YOUR_WIFI_SSID'
