@@ -1,34 +1,43 @@
 import network
 import urequests
-import random
 import time
 
-ssid = 'NAME OF NETWORK'
-password = 'PASSWORD'
-
-
+ssid = 'YOUR_SSID'
+password = 'YOUR_PASSWORD'
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 wlan.connect(ssid, password)
 
-if urequests.get("https://www.google.com"): #Checks for internet
+# Wait for connection
+while not wlan.isconnected():
+    time.sleep(1)
+
+# Check Internet connection
+try:
+    response = urequests.get("https://www.google.com")
     print("The connection has been established.")
-else:
+    response.close()
+except:
     print("The Connection could not be established.")
-    #end of function
-message = ["Type in any message you want!"]
+    raise SystemExit
 
-discord_url = "WEBHOOK"
+message = "Type in any message you want!"
+discord_url = "YOUR_WEBHOOK_URL"
 data = {
-    "content" : message,
-    "username" : "Name of webhook"
-    }
+    "content": message,
+    "username": "PicoBot"
+}
 
-ask_user = input("Do you want the message to be sent once or multiple times (1 = once, 2 = multiple : ")
+ask_user = "1"  # Replace with "2" for repeated messages
+
 if ask_user == "1":
     print(f"The message has been sent: {message}")
-    result = urequests.post(discord_url, json = data)
+    result = urequests.post(discord_url, json=data)
+    result.close()
 elif ask_user == "2":
     while True:
-        result = urequests.post(discord_url, json = data)
+        result = urequests.post(discord_url, json=data)
+        result.close()
+        print("Message sent. Waiting...")
+        time.sleep(5)
